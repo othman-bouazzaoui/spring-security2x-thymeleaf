@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec=https://www.thymeleaf.org/thymeleaf-extras-springsecurity5
+      layout:decorate="~{/template/template}">
+<head>
+    <title>L'ajoute d'un role</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">L'ajout d'un role</div>
+            <div class="card-body">
+                <form th:action="@{addRole}" method="post">
+                    <div class="form-group">
+                        <label class="control-label">Le nom du role :</label> <input
+                            class="form-control" type="text" name="roleName" required="required">
+                    </div>
+                    <button class="btn btn-dark">enregistrer</button>
+                </form>
+                <!-- <h1 th:text="*{roleName !=''} ? ${roleName} : ''"></h1> -->
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec=https://www.thymeleaf.org/thymeleaf-extras-springsecurity5
+      layout:decorate="~{/template/template}">
+<head>
+    <title>L'ajout d'un écrivain</title>
+    <meta charset="utf8">
+
+</head>
+<body>
+<div th:insert="~{/menu :: nav-menu}"></div>
+<div layout:fragment="content">
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">L'ajout d'un écrivain</div>
+            <div class="card-body">
+                <form th:action="@{saveAuthor}" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+
+                        <label class="control-label">Le prénom</label> <input
+                            class="form-control" type="text" th:value="${author.firstName}" name="firstName" required="required">
+
+                        <label class="control-label">Le nom</label> <input
+                            class="form-control" name="lastName" th:value="${author.lastName}" type="text" required="required">
+
+                        <label class="control-label">Photos: </label>
+                        <input class="form-control" type="file" name="image" id="imageInput" accept="image/jpeg" onchange="loadFile(event)"/>
+                        <img id="output" alt="add img"/>
+                    </div>
+                    <button class="btn btn-dark">enregistrer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:insert="~{footer :: footer}"></div>
+</body>
+</html>

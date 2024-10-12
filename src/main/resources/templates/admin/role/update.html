@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec=https://www.thymeleaf.org/thymeleaf-extras-springsecurity5
+      layout:decorate="~{/template/template}">
+<head>
+    <title>Liste des roles</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">Je modifie le role : <span th:text="${role.roleName}"></span></div>
+            <div class="card-body">
+                <form th:action="@{saveRole}" method="post">
+                    <div class="form-group">
+                        <label class="control-label">ID role :</label>
+                        <input
+                                class="form-control" type="hidden" name="id"
+                                th:value="${role.id}" required="required">
+                        <label class="control-label">Le nom du role :</label>
+                        <input
+                                class="form-control" type="text" name="roleName"
+                                th:value="${role.roleName}" required="required">
+                    </div>
+                    <button class="btn btn-dark">enregistrer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

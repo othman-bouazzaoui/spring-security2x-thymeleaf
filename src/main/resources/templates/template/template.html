@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/common/style.css}">
+    <object th:include="~{/template/top::head}" th:remove="tag" ></object>
+    <script th:src="@{/common/main.js}"></script>
+</head>
+<body>
+<div th:insert="~{/template/top::nav-menu}"></div>
+
+<section layout:fragment="content"></section>
+
+<div th:insert="~{/template/footer::footer}"></div>
+</body>
+<script th:src="@{/bootstrap/jquery/jquery-3.3.1.min.js}"></script>
+
+<script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+
+
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec=https://www.thymeleaf.org/thymeleaf-extras-springsecurity5
+      layout:decorate="~{/template/template}">
+<head>
+    <title>Liste des utilisateurs</title>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">Liste des utilisateurs</div>
+            <div class="card-body" style="height: 300px">
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>Nom d'utilisateur</th>
+                        <th>Mot de passe</th>
+                        <th>Les rôles</th>
+                        <th>Image</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tr th:each="u:${users}">
+                        <td th:text="${u.username}"></td>
+                        <td th:text="${u.password} == '' ? '' :'*************'"></td>
+                        <td><span th:each="r:${u.AppRoles}" th:text="${r.RoleName} +' '"> </span></td>
+                        <td><img th:src="@{getFile(photo=${u.photo})}" width="25px"/></td>
+                        <td>
+                            <a th:href="@{user/updateUser(username=${u.username})}">
+                                <button type="button" class="btn btn-primary">Modifier</button>
+                            </a>
+                            <a onclick="return confirm('vous voulez vraiment supprimer cet utilisateur ?')"
+                               th:href="@{deleteUser(id=${u.id})}">
+                                <button type="button" class="btn btn-danger">Supprimer</button>
+                            </a></td>
+                    </tr>
+                </table>
+            </div>
+            <div style="padding-left: 5px">
+                <ul class="pagination pagination-lg">
+                    <li class="page-item" th:each="page,status:${pages}">
+                        <a th:class="${status.index==currentPage?'page-link':'page-link'}"
+                           th:href="@{users(page=${status.index}, size=${size} ) }" th:text="${status.index }+1"></a>
+                    </li>
+                </ul>
+                <a th:href="@{/admin/user/add}">
+                    <button type="button" class="btn btn-dark">Ajouter un utilisateur</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

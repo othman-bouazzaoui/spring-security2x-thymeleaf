@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec=https://www.thymeleaf.org/thymeleaf-extras-springsecurity5
+      layout:decorate="~{/template/template}">
+<head>
+    <title>La modification d'un auteur</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">Je modifie l'auteur : <span th:text="${author.firstName}"></span></div>
+            <div class="card-body">
+                <form th:action="@{saveAuthor}" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label class="control-label">ID</label> <input
+                            class="form-control" type="hidden" th:value="${author.id}" name="id" required="required">
+
+                        <label class="control-label">Le prénom</label> <input
+                            class="form-control" type="text" th:value="${author.firstName}" name="firstName" required="required">
+
+                        <label class="control-label">Le nom</label> <input
+                            class="form-control" name="lastName" th:value="${author.lastName}" type="text" required="required">
+
+                        <label class="control-label">Image d'auteur :</label> <input
+                            class="form-control" name="image" type="file" accept="image/jpeg" >
+                        <img th:src="@{/getFile(photo=${author.photo})}" width="25px"/>
+                    </div>
+                    <button class="btn btn-dark">enregistrer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

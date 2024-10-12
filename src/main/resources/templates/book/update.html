@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec=https://www.thymeleaf.org/thymeleaf-extras-springsecurity5
+      layout:decorate="~{/template/template}">
+<head>
+    <title>La modification d'un livre</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">Je modifie un livre : <span th:text="${book.name}"></span></div>
+            <div class="card-body">
+                <form th:action="@{saveBook}" method="post">
+                    <div class="form-group">
+
+                        <label class="control-label">id du livre</label> <input
+                            class="form-control" type="hidden" th:value="${book.id}" name="id" required="required">
+
+                        <label class="control-label">Le titre du livre</label> <input
+                            class="form-control" type="text" th:value="${book.name}" name="name" required="required">
+
+                        <label class="control-label">Selectionner l'écrivain du livre</label>
+                        <select name="author" class="form-control">
+                            <option value="0">none</option>
+                            <option  th:each="a:${authors}" th:value="${a.id}" th:text="${a.firstName}  + ' ' + ${a.lastName}"></option>
+                        </select>
+                    </div>
+                    <button class="btn btn-dark">enregistrer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec=https://www.thymeleaf.org/thymeleaf-extras-springsecurity5
+      layout:decorate="~{/template/template}">
+<head>
+    <title>La liste des auteurs</title>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">La liste des auteurs</div>
+            <div class="card-body" style="height: 300px">
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>Id</th> <th>Prenom</th> <th>Nom</th> <th>Image</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tr th:each="a:${authors}">
+                        <td th:text="${a.id}"></td>  <td th:text="${a.firstName}"></td> <td th:text="${a.lastName}"></td>
+                        <td><img th:src="@{getFile(photo=${a.photo})}" width="25px"/></td>
+                        <td><span>
+   <a  th:href="@{/author/update(id=${a.id})}"><button type="button" class="btn btn-primary">Modifier</button></a>
+   <a   sec:authorize="hasAuthority('ADMIN')" onclick="return confirm('Vous voulez vraiment supprimer cet auteur ?')" th:href="@{/author/delete(id=${a.id})}"><button type="button" class="btn btn-danger">Supprimer</button></a>
+</span></td>
+                    </tr>
+                </table>
+            </div>
+            <div style="padding-left: 5px">
+                <ul class="pagination pagination-lg">
+                    <li class="page-item" th:each="page,status:${pages}">
+                        <a th:class="${status.index==currentPage?'page-link':'page-link'}"
+                           th:href="@{authors(page=${status.index}, size=${size} ) }"
+                           th:text="${status.index }+1"></a>
+                    </li>
+                </ul>
+                <a th:href="@{/author/add}"><button type="button" class="btn btn-dark">Ajouter un auteur</button></a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec=https://www.thymeleaf.org/thymeleaf-extras-springsecurity5
+      layout:decorate="/template/template">
+<head>
+    <title>Liste des roles</title>
+    <meta charset="utf8"/>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">La liste des roles</div>
+            <div class="card-body" style="height: 300px">
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>L'ID du Role</th>
+                        <th>Le Nom du Role</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tr th:each="r:${roles}">
+                        <td th:text="${r.id}"></td>
+                        <td th:text="${r.roleName}"></td>
+                        <td><span>
+   <a th:href="@{role/updateRole(roleName=${r.roleName})}"><button type="button"
+                                                                   class="btn btn-primary">Modifier</button></a>
+   <a th:onclick="return confirm('Vous souhaitez vraiment effectuer la suppression')"
+      th:href="@{deleteRole(id=${r.id})} "><button type="button" class="btn btn-danger">Supprimer</button></a>
+</span></td>
+                    </tr>
+                </table>
+            </div>
+            <div style="padding-left: 5px">
+                <ul class="pagination pagination-lg">
+                    <li class="page-item" th:each="page,status:${pages}">
+                        <a th:class="${status.index==currentPage?'page-link':'page-link'}"
+                           th:href="@{roles(page=${status.index}, size=${size} ) }"
+                           th:text="${status.index }+1"></a>
+                    </li>
+                </ul>
+                <a th:href="@{/admin/role/add}">
+                    <button type="button" class="btn btn-dark">Ajouter un role</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

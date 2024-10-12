@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec=https://www.thymeleaf.org/thymeleaf-extras-springsecurity5
+      layout:decorate="~{/template/template}">
+<head>
+    <title>L'ajout d'un utilisateur</title>
+    <meta charset="utf8">
+
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">L'ajout d'un utilisateur</div>
+            <div class="card-body">
+                <form th:action="@{saveUser}" method="post"  enctype="multipart/form-data">
+                    <div class="form-group">
+
+                        <label class="control-label">Le nom d'utilisateur</label> <input
+                            class="form-control" type="text" th:value="${user.username}" name="username" required="required">
+                        <label class="control-label">Le mot de passe</label> <input
+                            class="form-control" name="password" th:value="${user.password}" type="password" required="required">
+                        <label class="control-label">Selectionner le rôle</label>
+                        <select name="roleName" class="form-control" multiple>
+                            <option value="">none</option>
+                            <option  th:each="r:${roles}" th:value="${r.RoleName}" th:text="${r.RoleName}"></option>
+                        </select>
+                        <label class="control-label">Photos: </label>
+                        <input class="form-control" type="file" name="image" id="imageInput" accept="image/jpeg" onchange="loadFile(event)"/>
+                        <img id="output" alt="add img"/>
+                    </div>
+                    <button class="btn btn-dark">enregistrer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

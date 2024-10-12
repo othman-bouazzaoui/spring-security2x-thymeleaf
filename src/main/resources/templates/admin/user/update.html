@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec=https://www.thymeleaf.org/thymeleaf-extras-springsecurity5
+      layout:decorate="~{/template/template}">
+<head>
+    <title>La modification d'un utilisateur</title>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">Je modifie l'utilisateur : <span th:text="${user.username}"></span></div>
+            <div class="card-body">
+                <form th:action="@{saveUser}" method="post"  enctype="multipart/form-data">
+                    <div class="form-group">
+                        <input class="form-control" type="hidden" name="id"
+                               th:value="${user.id}" required="required">
+                        <label class="control-label">Le nom d'utilisateur :</label>
+                        <input class="form-control" type="text" name="username" th:value="${user.username}" required="required">
+                        <label class="control-label">Le mot de passe :</label>
+                        <input class="form-control" type="password" name="password" >
+                        <label class="control-label">Selectionner le rôle</label>
+                        <select name="roleName" class="form-control" multiple>
+                            <option value="">none</option>
+                            <option  th:each="r:${roles}" th:value="${r.RoleName}" th:text="${r.RoleName}"></option>
+                        </select>
+                        <label class="control-label">Image d'auteur :</label>
+                        <input class="form-control" name="image" type="file" accept="image/jpeg" />
+                        <img th:src="@{../getFile(photo=${user.photo})}" width="25px"/>
+                    </div>
+                    <button class="btn btn-dark">enregistrer</button>
+                </form>
+            </div>
+        </div></div></div>
+</body>
+</html>
